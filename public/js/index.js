@@ -65,7 +65,7 @@ layui.config({
         //cached: true,
         //data: navs
 		cached:false,
-		url: 'nav.json'
+		url: '/manager/menu'
     });
     //渲染navbar
     navbar.render();
@@ -128,9 +128,9 @@ layui.config({
 
     $('#setting').on('click', function () {
         tab.tabAdd({
-            href: '/Manage/Account/Setting/',
+            href: '/manager/secure',
             icon: 'fa-gear',
-            title: '设置'
+            title: '修改密码'
         });
     });
 

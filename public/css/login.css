@@ -1,5 +1,5 @@
 .beg-login-bg {
-	background: url(../Images/login-bg-1.jpg) no-repeat center center fixed;
+	background: url(../images/login-bg-1.jpg) no-repeat center center fixed;
 	background-color: #393D49;
 }
 
@@ -7,7 +7,7 @@
 	width: 450px;
 	height: 330px;
 	margin: 10% auto;
-	background-color: rgba(255, 255, 255, 0.407843);
+	background-color: rgba(000, 000, 000, 0.207843);
 	border-radius: 10px;
 	color: aliceblue;
 }
@@ -46,7 +46,7 @@
 
 .beg-login-box footer {
 	height: 35px;
-	padding: 10px 10px 0 10px;
+	padding: 0 10px;
 }
 
 .beg-login-box footer p {
