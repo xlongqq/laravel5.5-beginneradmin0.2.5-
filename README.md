@@ -10,11 +10,10 @@ Mysql 5.7+
 
 开发环境部署/安装
 
-1. 克隆源代码
-克隆源代码到本地：
-> git clone https://github.com/Ucer/codehaoshi.git
+1.克隆源代码
+克隆源代码到本地：git clone https://github.com/Ucer/codehaoshi.git
 
-2. 配置本地的环境
+2.配置本地的环境
 复制根目录下面的.env.example 为 .env，修改.env中的相关参数（数据库连接等）
 
 3.文件权限问题
@@ -26,8 +25,9 @@ chmod 777 -R storage ;
 composer install
 php artisan migrate
 php artisan db:seed
+还原 /app/providers/AuthServiceProvider.php
 
 5.后台登录
-    配置虚拟主机地址：例如 www.lbadmin.com
-    在浏览器访问 www.lbadmin.com/manager
-    输入admin/123456
+配置虚拟主机地址：例如 www.lbadmin.com
+在浏览器访问 www.lbadmin.com/manager
+输入admin/123456

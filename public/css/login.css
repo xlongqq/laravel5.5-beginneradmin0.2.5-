@@ -1,6 +1,8 @@
 .beg-login-bg {
 	background: url(../images/login-bg-1.jpg) no-repeat center center fixed;
 	background-color: #393D49;
+	-webkit-background-size: cover;
+	background-size: cover;
 }
 
 .beg-login-box {
