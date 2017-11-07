@@ -43,4 +43,8 @@ Route::group(['prefix' => 'manager', 'middleware' => 'auth.manager:manager', 'na
     $router->any('accounts.addGroup', 'AccountsController@addGroup')->name('manager.accounts.addGroup');
     $router->any('accounts.editGroup', 'AccountsController@editGroup')->name('manager.accounts.editGroup');
     $router->any('accounts.modifyLimit', 'AccountsController@modifyLimit')->name('manager.accounts.modifyLimit');
+    $router->any('permission.index', 'AccountsController@permissions')->name('manager.permission.index');
+    $router->any('permission.add', 'AccountsController@addPermission')->name('manager.permission.add');
+    $router->any('permission.edit', 'AccountsController@editPermission')->name('manager.permission.edit');
+    $router->any('permission.del', 'AccountsController@delPermission')->name('manager.permission.del');
 });

@@ -262,17 +262,15 @@ class AccountsController extends Controller
     }
 
     protected function getPermissions(Request $request){
-        if (1){
-            $auth_group_data = DB::table('manager_permission_role')->where('role_id', $request->input('id'))->get()->toArray();
-            $auth_rules      = array_column($auth_group_data, 'permission_id');
-            $auth_rule_list  = Permission::query()->get();
-
-            foreach ($auth_rule_list as $key => $value) {
-                in_array($value['id'], $auth_rules) && $auth_rule_list[$key]['checked'] = true;
-            }
+        $auth_group_data = DB::table('manager_permission_role')->where('role_id', $request->input('id'))->get()->toArray();
+        $auth_rules      = array_column($auth_group_data, 'permission_id');
+        $auth_rule_list  = Permission::query()->get();
+        foreach ($auth_rule_list as $key => $value) {
+            in_array($value['id'], $auth_rules) && $auth_rule_list[$key]['checked'] = true;
         }
         return $auth_rule_list;
     }
+
     protected function setPermissions(Request $request){
         $post_auth_rules = $request->input('auth_rule_ids');
         $new_role_permission = [];
@@ -303,4 +301,125 @@ class AccountsController extends Controller
         Cache::forget('menus');
         return api_response(true);
     }
+
+    public function permissions(Request $request)
+    {
+        $permissions = Permission::query()->paginate(10);
+        return view('manager.accounts.permissionIndex', [
+            'permissions' => $permissions,
+        ]);
+    }
+
+    public function addPermission(Request $request)
+    {
+        $menus = $request->attributes->get('menu');
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+                'label' => 'required|max:255'
+            ], [
+                'name.required'  => '请输入权限路由',
+                'name.max'  => '权限路由最长255个字符',
+                'label.required'  => '请输入权限名称',
+                'label.max'  => '权限名称最长255个字符',
+            ]);
+
+            if ($validator->fails()) {
+                $errors = ['success' => false,'msg'=>$validator->errors()->first()];
+                return $errors;
+            }
+
+            try {
+                DB::begintransaction();
+                $permission = new Permission();
+                $permission->name = $request->input('name');
+                $permission->label = $request->input('label');
+                $permission->sort = $request->input('sort')?$request->input('sort'):0;
+                $permission->icon = $request->input('icon')?$request->input('icon'):'';
+                $permission->cid = $request->input('cid');
+                if (!$permission->save()) {
+                    throw new \Exception('添加失败');
+                }
+                Cache::forget('menus');
+                DB::commit();
+            } catch (\Exception $e){
+                DB::rollBack();
+                return ['success' => false,'msg'=>$e->getMessage()];
+            }
+            return ['success' => true,'msg'=>'添加成功'];
+        }
+        return view('manager.accounts.addPermission', [
+            'menus' => $menus,
+        ]);
+    }
+
+    public function editPermission(Request $request)
+    {
+        $permission = Permission::query()->find($request->input('id'));
+        if (empty($permission)) {
+            return ['success' => false,'msg'=>'权限不存在'];
+        }
+        $menus = $request->attributes->get('menu');
+        if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+                'label' => 'required|max:255'
+            ], [
+                'name.required'  => '请输入权限路由',
+                'name.max'  => '权限路由最长255个字符',
+                'label.required'  => '请输入权限名称',
+                'label.max'  => '权限名称最长255个字符',
+            ]);
+
+            if ($validator->fails()) {
+                $errors = ['success' => false,'msg'=>$validator->errors()->first()];
+                return $errors;
+            }
+
+            try {
+                DB::begintransaction();
+                $permission->name = $request->input('name');
+                $permission->label = $request->input('label');
+                $permission->sort = $request->input('sort')?$request->input('sort'):0;
+                $permission->icon = $request->input('icon')?$request->input('icon'):'';
+                $permission->cid = $request->input('cid');
+                if (!$permission->save()) {
+                    throw new \Exception('编辑失败');
+                }
+                Cache::forget('menus');
+                DB::commit();
+            } catch (\Exception $e){
+                DB::rollBack();
+                return ['success' => false,'msg'=>$e->getMessage()];
+            }
+            return ['success' => true,'msg'=>'编辑成功'];
+        }
+        return view('manager.accounts.editPermission', [
+            'menus' => $menus,
+            'permission' => $permission,
+        ]);
+    }
+
+    public function delPermission(Request $request)
+    {
+        $id = $request->input('id');
+        try {
+            DB::begintransaction();
+            $result = Permission::query()->where('id', $id)->delete();
+            if (!$result) {
+                throw new \Exception('操作失败');
+            }
+            $result = DB::table('manager_permission_role')->where('permission_id', $id)->delete();
+            if ($result === false) {
+                throw new \Exception('关联记录删除失败');
+            }
+            Cache::forget('menus');
+            DB::commit();
+        } catch (\Exception $e){
+            DB::rollBack();
+            return ['success' => false,'msg'=>$e->getMessage()];
+        }
+        return ['success' => true,'msg'=>'操作成功'];
+    }
+
 }

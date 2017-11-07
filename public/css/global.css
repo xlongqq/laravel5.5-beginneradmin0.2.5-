@@ -328,7 +328,6 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 
 /**/
 .admin-main {margin: 15px;}
-
 .admin-side-toggle,.admin-side-full{
 	position: absolute; cursor: pointer;
     z-index: 19940201;
@@ -350,12 +349,9 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .admin-login-box{
 	width: 185px; height: 70px; position: relative;
 }
-
 .beg-navbar .layui-nav-child dd a{
 	padding-left: 30px;
 }
-
-
 .admin-contextmenu{
 	position: absolute;line-height: 36px;padding: 5px 0;
 	border: 1px solid #d2d2d2;background-color: white;z-index: 19940201;border-radius: 2px;white-space: nowrap;top:30px;
@@ -368,7 +364,29 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 	background-color: #eee;
 	cursor: pointer;
 }
-
+/*分页*/
+.pagination{
+    display:flex;
+    margin-top:30px;
+}
+.pagination li{
+    padding:8px 15px;
+    font-size:16px;
+    border:1px solid #e2e2e2;
+    margin-right:-1px;
+    color:#333;
+}
+.pagination li.active{
+    background-color:#009688;
+    color:#fff;
+}
+.pagination li:hover{
+    color:#FFF;
+}
+.pagination li.disabled:hover{
+    color:#d2d2d2!important;
+    cursor: not-allowed!important;
+}
 
 /* 适配多设备 */
 @media screen and (max-width: 750px) {
