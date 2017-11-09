@@ -23,8 +23,8 @@ Route::get('main', function () {
 
 Route::group(['prefix' => 'manager','namespace' => 'Manager'],function ($router)
 {
-    $router->get('/', 'DashboardController@index');
-    $router->get('dash', 'DashboardController@index');
+    $router->get('/', 'DashboardController@index')->name('manager.index');
+    $router->get('dash', 'DashboardController@index')->name('manager.dash');
     $router->get('login', 'LoginController@showLoginForm')->name('manager.login');
     $router->post('login', 'LoginController@login');
     $router->any('logout', 'LoginController@logout');

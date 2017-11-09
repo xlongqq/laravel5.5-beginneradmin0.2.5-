@@ -35,7 +35,7 @@ class ManagerAuthMiddleware
         //权限过滤
         $previousUrl = URL::previous();
         $routeName = starts_with(Route::currentRouteName(), 'manager.') ? Route::currentRouteName() : 'manager.' . Route::currentRouteName();
-        if (!Gate::forUser(auth('manager')->user())->check($routeName)) {
+        if (!Gate::forUser(auth('manager')->user())->check($routeName) && ($routeName!='manager.dash' && $routeName!='manager.index')) {
             if ($request->ajax() && ($request->getMethod() != 'GET')) {
                 return response()->json([
                     'success' => true,

@@ -12,9 +12,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 
-		<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="/css/global.css" media="all">
-		<link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ url('/') }}/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="{{ url('/') }}/css/global.css" media="all">
+		<link rel="stylesheet" href="{{ url('/') }}/plugins/font-awesome/css/font-awesome.min.css">
 
 	</head>
 
@@ -100,14 +100,12 @@
 			</script>
 			<!--锁屏模板 end -->
 			
-			<script type="text/javascript" src="/plugins/layui/layui.js"></script>
-			<script src="/js/index.js"></script>
+			<script type="text/javascript" src="{{ url('/') }}/plugins/layui/layui.js"></script>
+			<script src="{{ url('/') }}/js/index.js"></script>
 			<script>
 				layui.use('layer', function() {
 					var $ = layui.jquery,
 						layer = layui.layer;
-
-
 				});
 			</script>
 		</div>
