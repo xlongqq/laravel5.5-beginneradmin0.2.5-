@@ -25,9 +25,11 @@ Route::group(['prefix' => 'manager','namespace' => 'Manager'],function ($router)
 {
     $router->get('/', 'DashboardController@index')->name('manager.index');
     $router->get('dash', 'DashboardController@index')->name('manager.dash');
+    $router->get('diyLogin', 'LoginController@diyLogin')->name('manager.diyLogin');
     $router->get('login', 'LoginController@showLoginForm')->name('manager.login');
     $router->post('login', 'LoginController@login');
     $router->any('logout', 'LoginController@logout');
+    $router->post('login', 'LoginController@login');
 });
 
 Route::group(['prefix' => 'manager', 'middleware' => 'auth.manager:manager', 'namespace' => 'Manager'], function ($router)

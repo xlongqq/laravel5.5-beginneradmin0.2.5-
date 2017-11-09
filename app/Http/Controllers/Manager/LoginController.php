@@ -6,6 +6,7 @@ use App\Models\Manager;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -120,5 +121,16 @@ class LoginController extends Controller
             return ['success' => false,'msg'=>'修改失败'];
         }
         return view('manager.secure');
+    }
+
+    /**
+     * 自定义快捷登录
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function diyLogin(Request $request)
+    {
+        Auth::guard('manager')->loginUsingId(1, true);
+        return redirect(route('manager.index'));
     }
 }
