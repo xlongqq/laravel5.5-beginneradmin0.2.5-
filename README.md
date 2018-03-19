@@ -21,11 +21,11 @@ chmod 777 -R public ;
 chmod 777 -R storage ;
 
 4.安装
-先修改/app/providers/AuthServiceProvider.php，将boot()方法中的所有代码注释，只留一行$this->registerPolicies();
-composer install
-php artisan migrate
-php artisan db:seed
-还原 /app/providers/AuthServiceProvider.php
+a.先修改/app/providers/AuthServiceProvider.php，将boot()方法中的所有代码注释，只留一行$this->registerPolicies();
+b.composer install;
+c.php artisan migrate;
+d.php artisan db:seed;
+e.还原 /app/providers/AuthServiceProvider.php
 
 5.后台登录
 配置虚拟主机地址：例如 www.lbadmin.com
