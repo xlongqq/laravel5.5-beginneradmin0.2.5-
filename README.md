@@ -1,16 +1,16 @@
 
-#简介
+# 简介
 * 基于laravel5.5 + beginneradmin0.2.5的后端管理系统基础框架，包含登录与权限管理模块。
 
 
-#运行环境
+# 运行环境
 
 * Laravel5.5.*
 * Nginx 1.8+
 * PHP 7.1+
 * Mysql 5.7+
 
-#开发环境部署/安装
+# 开发环境部署/安装
 
 * 1.克隆源代码
  * 克隆源代码到本地：git clone https://github.com/xlongqq/laravel5.5-beginneradmin0.2.5-.git
